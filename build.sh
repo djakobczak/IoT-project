@@ -1,0 +1,1 @@
+docker build -t test-iot-app -f ./docker/Dockerfile .
