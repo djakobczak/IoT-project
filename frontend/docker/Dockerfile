@@ -1,5 +1,7 @@
 FROM python:3.9.2-slim AS base
 
+
+# !TODO export builder as a common layer
 FROM base AS builder
 
 ENV PYTHONFAULTHANDLER=1 \
@@ -26,6 +28,7 @@ RUN pip install --prefix=/runtime --force-reinstall -r requirements.txt
 
 FROM base AS runtime
 COPY --from=builder /runtime /usr/local
-COPY ./app /src
-WORKDIR /src
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
+COPY . /frontend/src
+WORKDIR /frontend/src
+
+CMD ["python", "index.py"]
