@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 from pydantic import BaseModel
 
 
@@ -16,7 +14,7 @@ class CrosswalkCreate(CrosswalkBase):
 # reading from our API
 class CrosswalkSchema(CrosswalkBase):
     id: int
-    
+
     class Config:
         # https://python101.readthedocs.io/pl/latest/bazy/orm/
         # treat db records as objects e.g. cross.id
