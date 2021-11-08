@@ -3,9 +3,14 @@ from dash import dcc, html
 
 layout = html.Div(
     children = [
-        html.H1("Operator dashboard"),
-        html.P("Panel przedstawiający statystyki z przejść dla pieszych"),
-        dcc.Graph(id='test-graph'),
+        html.Div(children = [
+            html.H1("Operator dashboard", className="header-title"),
+            html.P("Panel przedstawiający statystyki z przejść dla pieszych",
+                   className="header-description"),
+        ], className="header"),
+        html.Div(children = [
+            dcc.Graph(id='test-graph'),
+        ], className="wrapper"),
         dcc.Dropdown(
             id="test-filter",
             options=[
