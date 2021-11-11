@@ -4,7 +4,7 @@ from pydantic import BaseModel
 
 
 class StatiscsBase(BaseModel):
-    crosswalk_id: int
+    crosswalk_name: str
     timestamp: datetime   # maybe change to start-end, but it requires more from client side
     pedestrians: int
 
