@@ -1,4 +1,6 @@
 import dash
+import dash_bootstrap_components as dbc
+
 
 from layout import layout
 
@@ -11,6 +13,7 @@ external_stylesheets = [
                 "family=Lato:wght@400;700&display=swap",
         "rel": "stylesheet",
     },
+    dbc.themes.SPACELAB
 ]
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)

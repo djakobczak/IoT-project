@@ -1,12 +1,5 @@
 
-body {
-    font-family: "Lato", sans-serif;
-    margin: 0;
-    background-color: #F7F7F7;
-}
-
 .header {
-    background-color: #222222;
     height: 256px;
     display: flex;
     flex-direction: column;
@@ -14,7 +7,6 @@ body {
 }
 
 .header-title {
-    color: #FFFFFF;
     font-size: 48px;
     font-weight: bold;
     text-align: center;
@@ -22,7 +14,6 @@ body {
 }
 
 .header-description {
-    color: #aaaaaa;
     font-size: 30px;
     text-align: center;
 }
@@ -34,4 +25,23 @@ body {
     padding-right: 10px;
     padding-left: 10px;
     margin-top: 32px;
+}
+
+.sidenav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 16rem;
+    padding: 2rem 1rem;
+}
+
+.content {
+    margin-left: 18rem;
+    margin-right: 2rem;
+    padding: 2rem 1rem;
+}
+
+.dark-box {
+    background-color: #292929;
 }
