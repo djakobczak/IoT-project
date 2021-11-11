@@ -9,20 +9,18 @@ from app import app
 from layout import dash_page
 
 
-
-DATA_ENDPOINT = 'http://localhost:8000/api/v1/statistics'
-
-
-@app.callback(Output('test-graph', 'figure'),
-              [Input("test-filter", "value")])
-def update_graph(test_filter):
-    # reqeust data
-    data = requests.get(DATA_ENDPOINT)
-    print(data.json())
-
+@app.callback(
+    Output("test-graph", "figure"),
+    [Input("crosswalk-filter", "value"),
+     Input("data-range-filter", "value"),])
+def update_graph(crosswalk: str, data_range: str):
+    print("debug", crosswalk, data_range)
+    # request data
+    stats = app.client.get_stats()
+    print(stats)
     # process data
     ped_num = []
-    for record in data.json():
+    for record in stats:
         ped_num.append(record["pedestrians"])
 
     # generate graph

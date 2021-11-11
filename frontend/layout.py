@@ -48,7 +48,7 @@ data_range_dropdown = html.Div(
 dash_page = html.Div(
     children = [
         html.Div(children = [
-            html.H1("Operator dashboard", className="header-title"),
+            html.H1("Panel administratora", className="header-title"),
             html.P("Statystyki z przejść dla pieszych",
                    className="header-description"),
         ], className="header"),

@@ -1,6 +1,6 @@
 from app import app
 
-from graphs import render_page_content
+import graphs
 import callbacks
 
 
