@@ -1,4 +1,4 @@
-set -ux 
+set -ux
 
 IMAGE_NAME=${1}
 

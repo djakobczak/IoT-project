@@ -13,7 +13,7 @@ router = APIRouter()
 
 @router.get("/")
 def read_statistics(
-    crosswalk_id: Optional[int] = None, 
+    crosswalk_id: Optional[int] = None,
     db: Session = Depends(get_db)
 ) -> Any:  # !TODO change to id_or_name
     if crosswalk_id:
@@ -25,11 +25,11 @@ def read_statistics(
 
 @router.post("/")
 def create_statistics(stat: StatiscsCreate, db: Session = Depends(get_db)) -> Any:
-    corss_id = stat.crosswalk_id
+    cross_id = stat.crosswalk_id
     crosswalks_ids = [cross.id for cross in crud.get_crosswalks(db)]
-    if corss_id not in crosswalks_ids:
+    if cross_id not in crosswalks_ids:
         raise HTTPException(
             status_code=404,
-            detail=f"Crosswalk with id ({corss_id}) is not registered")
+            detail=f"Crosswalk with id ({cross_id}) is not registered")
 
     return crud.create_statistics(db=db, stat=stat)

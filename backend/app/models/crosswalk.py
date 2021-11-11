@@ -8,6 +8,7 @@ class CrosswalkModel(Base):
     __tablename__ = "crosswalks"
 
     id = Column(Integer, primary_key=True, index=True)
-    address = Column(String, index=True)
+    name = Column(String, index=True)
+    description = Column(String, index=True)
 
     statistics = relationship("StatisticsModel", back_populates="crosswalk")

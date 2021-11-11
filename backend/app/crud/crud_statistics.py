@@ -9,7 +9,8 @@ def get_statistics(db: Session):
 
 
 def get_crosswalk_statistics(db: Session, crosswalk_id: int):
-    return db.query(StatisticsModel).filter(StatisticsModel.crosswalk_id == crosswalk_id).all()
+    return db.query(StatisticsModel).filter(
+        StatisticsModel.crosswalk_id == crosswalk_id).all()
 
 
 def create_statistics(db: Session, stat: StatiscsSchema):
