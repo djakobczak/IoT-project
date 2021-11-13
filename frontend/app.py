@@ -1,6 +1,7 @@
 import logging
 
 import dash
+import dash_auth
 import dash_bootstrap_components as dbc
 
 from layout import layout
@@ -26,4 +27,4 @@ external_stylesheets = [
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 app.layout = layout
-app.client = ClientManager(Client(BACKEND_URL))
+app.client = ClientManager(Client(BACKEND_URL, 'admin', 'secret'))  # !TODO move to .env

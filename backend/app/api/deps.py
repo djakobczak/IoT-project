@@ -22,7 +22,7 @@ reusable_oauth2 = OAuth2PasswordBearer(
 
 SECRET_KEY = "6916cf97-1fab-4483-a94b-e82130b19283"  # !TODO fix
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+ACCESS_TOKEN_EXPIRE_MINUTES = 3600
 
 
 def get_db() -> Generator:
