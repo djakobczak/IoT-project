@@ -17,7 +17,6 @@ BACKEND_URL = 'http://localhost:8000/api/v1'
 
 external_stylesheets = [
     {
-
         "href": "https://fonts.googleapis.com/css2?"
                 "family=Lato:wght@400;700&display=swap",
         "rel": "stylesheet",

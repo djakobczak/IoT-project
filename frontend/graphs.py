@@ -1,7 +1,6 @@
 from dash import html
 from dash.dependencies import Output, Input
 import dash_bootstrap_components as dbc
-import requests
 import plotly.express as px
 import plotly.graph_objs as go
 

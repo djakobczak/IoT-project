@@ -139,3 +139,4 @@ cython_debug/
 
 sql_app.db
 backend/sql_app.db
+.tools/
