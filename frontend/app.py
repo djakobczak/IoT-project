@@ -4,17 +4,14 @@ import dash
 import dash_auth
 import dash_bootstrap_components as dbc
 
-from layout import layout
-
 from client import Client
 from manager import ClientManager
+from layout import layout
+from settings import settings
 
 
 logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
 
-
-# !TODO export as config
-BACKEND_URL = 'http://iot-backend:8000/api/v1'
 
 external_stylesheets = [
     {
@@ -27,4 +24,10 @@ external_stylesheets = [
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 app.layout = layout
-app.client = ClientManager(Client(BACKEND_URL, 'admin', 'secret'))  # !TODO move to .env
+app.client = ClientManager(
+    Client(
+        settings.BACKEND_URL,
+        settings.OPERATOR_USERNAME,
+        settings.OPERATOR_PASSWORD
+    )
+)

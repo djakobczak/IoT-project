@@ -14,4 +14,4 @@ app.include_router(api_router, prefix=settings.API_V1_STR)
 
 
 if __name__ == '__main__':
-    uvicorn.run(app, host='0.0.0.0', port=8000, debug=True)  # !TODO create settings file / .env.cfg that share config with docker
+    uvicorn.run(app, host=settings.HOST, port=settings.PORT, debug=True)
