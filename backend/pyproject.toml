@@ -11,6 +11,9 @@ uvicorn = {extras = ["standard"], version = "^0.15.0"}
 dash = "^2.0.0"
 plotly = "^5.3.1"
 SQLAlchemy = "^1.4.26"
+python-multipart = "^0.0.5"
+passlib = "^1.7.4"
+python-jose = "^3.3.0"
 
 [tool.poetry.dev-dependencies]
 
