@@ -12,13 +12,16 @@ IMAGE_TAG_FRONTEND="${REGISTRY_HOST}/${FRONTEND_IMAGE_NAME}"
 
 
 if [ "$ACTION" = "build" ] || [ "$ACTION" = "all" ]; then
-    /bin/bash build.sh backend ${BACKEND_IMAGE_NAME}
-    /bin/bash build.sh frontend ${FRONTEND_IMAGE_NAME}
+    /bin/bash build.sh backend ${IMAGE_TAG_BACKEND}
+    /bin/bash build.sh frontend ${IMAGE_TAG_FRONTEND}
 fi
 
 if [ "$ACTION" = "run" ] || [ "$ACTION" = "all" ]; then
-    /bin/bash run.sh ${BACKEND_CONTAINER_NAME} ${BACKEND_PORT} ${BACKEND_IMAGE_NAME}
-    /bin/bash run.sh ${FRONTEND_CONTAINER_NAME} ${FRONTEND_PORT} ${FRONTEND_IMAGE_NAME}
+    NETWORK_NAME="net1"
+
+    docker network create ${NETWORK_NAME}
+    /bin/bash run.sh ${BACKEND_CONTAINER_NAME} ${BACKEND_PORT} ${IMAGE_TAG_BACKEND} ${NETWORK_NAME}
+    /bin/bash run.sh ${FRONTEND_CONTAINER_NAME} ${FRONTEND_PORT} ${IMAGE_TAG_FRONTEND} ${NETWORK_NAME}
 fi
 
 if [ "$ACTION" = "stop" ]; then

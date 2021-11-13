@@ -52,7 +52,7 @@ class Client:
         return self._send_request(self.STATISTICS_ENDPOTIN, headers=auth_header)
 
     def _get_token(self):
-        data = 'grant_type=&username=admin&password=secret&scope=&client_id=&client_secret='
+        data = f'grant_type=&username={self.username}&password={self.passwd}&scope=&client_id=&client_secret='
         headers = {
             'Content-Type': 'application/x-www-form-urlencoded'
         }

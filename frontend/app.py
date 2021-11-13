@@ -14,7 +14,7 @@ logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
 
 
 # !TODO export as config
-BACKEND_URL = 'http://localhost:8000/api/v1'
+BACKEND_URL = 'http://iot-backend:8000/api/v1'
 
 external_stylesheets = [
     {
