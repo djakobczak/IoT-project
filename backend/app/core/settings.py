@@ -7,6 +7,8 @@ class Settings(BaseSettings):
     HOST: str = Field(..., env="BACKEND_HOST")
     OPERATOR_USERNAME: str
     OPERATOR_PASSWORD: str
+    RASPBERRY_PI_USERNAME: str
+    RASPBERRY_PI_PASSWORD: str
     SECRET_KEY: str
     ALGORITHM: str
 

@@ -31,20 +31,6 @@ def get_db() -> Generator:
         db.close()
 
 
-fake_users_db = {
-    "johndoe": {
-        "username": "john",
-        "hashed_password": "fakehashedsecret",
-        "disabled": False,
-    },
-    "alice": {
-        "username": "alice",
-        "hashed_password": "fakehashedsecret2",
-        "disabled": False,
-    },
-}
-
-
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     to_encode = data.copy()
     if expires_delta:
