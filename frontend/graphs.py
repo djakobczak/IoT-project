@@ -8,19 +8,46 @@ from app import app
 from layout import dash_page
 
 
+NOT_MATCHING_DATA = {
+    "layout": {
+        "xaxis": {
+            "visible": False
+        },
+        "yaxis": {
+            "visible": False
+        },
+        "annotations": [
+            {
+                "text": "No matching data found",
+                "xref": "paper",
+                "yref": "paper",
+                "showarrow": False,
+                "font": {
+                    "size": 28
+                }
+            }
+        ]
+    }
+}
+
+
 @app.callback(
     Output("test-graph", "figure"),
     [Input("crosswalk-filter", "value"),
      Input("data-range-filter", "value"),])
 def update_graph(crosswalk: str, data_range: str):
-    print("debug", crosswalk, data_range)
     # request data
-    stats = app.client.get_stats()
-    print(stats)
+    print("data range: ", data_range)
+    stats = app.client.get_stats(
+        [crosswalk] if crosswalk else None)
+
     # process data
     ped_num = []
     for record in stats:
         ped_num.append(record["pedestrians"])
+
+    if not ped_num:
+        return NOT_MATCHING_DATA
 
     # generate graph
     fig = px.scatter(

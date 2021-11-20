@@ -10,7 +10,7 @@ from layout import layout
 from settings import settings
 
 
-logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
+logging.basicConfig(format='%(asctime)s - %(levelname)s:%(message)s', level=logging.DEBUG)
 
 
 external_stylesheets = [
