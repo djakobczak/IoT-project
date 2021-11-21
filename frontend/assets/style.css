@@ -45,3 +45,8 @@
 .dark-box {
     background-color: #292929;
 }
+
+.row-element {
+    display: flex;
+    align-items: center;
+}
