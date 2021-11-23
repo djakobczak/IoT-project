@@ -3,6 +3,10 @@ from dash.dependencies import Output
 import dash_bootstrap_components as dbc
 
 
+# !TODO split file
+BOX_CLASSES = "box shadow p-3 bg-white rounded"
+
+
 sidebar = html.Div(
     [
         html.H2("Menu", className="display-5 text-light"),
@@ -77,6 +81,16 @@ histogram_slider = html.Div(
     ]
 )
 
+sum_card = dbc.Card(
+    dbc.CardBody(
+        children = [
+            html.H5("Sumaryczna liczba pieszych", className="card-title text-center"),
+            html.Hr(),
+            html.P(id="sum-badge", className="text-center")
+        ]
+    )
+)
+
 
 dash_page = html.Div(
     children = [
@@ -85,6 +99,13 @@ dash_page = html.Div(
             html.P("Statystyki z przejść dla pieszych",
                    className="header-description"),
         ], className="header"),
+        html.Div(children = [
+            dbc.Row(
+                children = [
+                    dbc.Col(sum_card, lg=3, className=BOX_CLASSES + " lr-margin")
+                ]
+            )
+        ]),
         html.Div(
             children=[
                 html.Div(
@@ -94,13 +115,13 @@ dash_page = html.Div(
                 html.Div(children = [
                     dcc.Graph(id='test-graph'),
                 ], className="wrapper"),
-            ], className="box shadow p-3 mb-5 bg-white rounded"
+            ], className=BOX_CLASSES
         ),
         html.Div(children=[
             histogram_slider,
             stat_histogram
-        ], className="box shadow p-3 mb-5 bg-white rounded")
-    ],
+        ], className=BOX_CLASSES),
+    ]
 )
 
 
