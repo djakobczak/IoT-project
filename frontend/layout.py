@@ -44,6 +44,20 @@ data_range_dropdown = html.Div(
     className="col-sm"
 )
 
+graph_checklist = html.Div(
+    children=[
+        dcc.Checklist(
+            id='graph-checklist',
+            options=[
+                {'label': ' Linia trendu', 'value': 'trendline'},
+            ],
+            value=['trendline'],
+            labelStyle={'display': 'inline-block'},
+        )
+    ],
+    className="col-sm row-element",
+)
+
 
 dash_page = html.Div(
     children = [
@@ -53,7 +67,7 @@ dash_page = html.Div(
                    className="header-description"),
         ], className="header"),
         html.Div(
-            children=[crosswalk_dropdown, data_range_dropdown],
+            children=[crosswalk_dropdown, graph_checklist],
             className="row"
         ),
         html.Div(children = [
