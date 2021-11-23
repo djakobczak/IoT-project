@@ -58,6 +58,25 @@ graph_checklist = html.Div(
     className="col-sm row-element",
 )
 
+stat_histogram = html.Div(
+    children=[
+        dcc.Graph(id='stat-histogram')
+    ]
+)
+
+histogram_slider = html.Div(
+    [
+        dcc.Slider(
+            id="histogram-slider",
+            min=0,
+            max=10,
+            step=1,
+            value=5,
+            tooltip={"placement": "bottom", "always_visible": True},
+        )
+    ]
+)
+
 
 dash_page = html.Div(
     children = [
@@ -67,13 +86,21 @@ dash_page = html.Div(
                    className="header-description"),
         ], className="header"),
         html.Div(
-            children=[crosswalk_dropdown, graph_checklist],
-            className="row"
+            children=[
+                html.Div(
+                    children=[crosswalk_dropdown, graph_checklist],
+                    className="row"
+                ),
+                html.Div(children = [
+                    dcc.Graph(id='test-graph'),
+                ], className="wrapper"),
+            ], className="box shadow p-3 mb-5 bg-white rounded"
         ),
-        html.Div(children = [
-            dcc.Graph(id='test-graph'),
-        ], className="wrapper")
-    ]
+        html.Div(children=[
+            histogram_slider,
+            stat_histogram
+        ], className="box shadow p-3 mb-5 bg-white rounded")
+    ],
 )
 
 
