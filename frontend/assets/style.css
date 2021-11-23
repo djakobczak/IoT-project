@@ -37,9 +37,9 @@
 }
 
 .content {
-    margin-left: 18rem;
-    margin-right: 2rem;
-    padding: 2rem 1rem;
+    margin-left: 16rem;
+    padding: 2rem 4rem;
+    background-color: #f3f3f3;
 }
 
 .dark-box {
@@ -49,4 +49,11 @@
 .row-element {
     display: flex;
     align-items: center;
+}
+
+.box {
+    background-color:#fff;
+    margin: 2em;
+    padding: 1em;
+    margin-bottom: 5em;
 }

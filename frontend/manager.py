@@ -27,7 +27,8 @@ class ClientManager:
 
     def get_stats(
         self,
-        crosswalks_names: List[str] = None
+        crosswalks_names: List[str] = None,
+        groupby: List[str] = None
     ) -> DataFrame:
         stats = self.client.get_all_stats()
         df = DataFrame(stats)
@@ -37,5 +38,6 @@ class ClientManager:
             df = df[df.crosswalk_name.isin(crosswalks_names)]
             LOG.debug("Crosswalk names filtered stats: %s", df)
 
-        df = df.groupby("timestamp", as_index=False).sum()
+        if groupby:
+            df = df.groupby(groupby, as_index=False).sum()
         return df
