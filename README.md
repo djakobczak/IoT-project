@@ -70,7 +70,7 @@ Run backend
 ```
 cd backend
 poetry shell
-poetry install (if it is the first app launch on the system)
+poetry install (requried only if it is the first app launch on the system)
 export PYTHONPATH=.
 python app/main.py
 ```
@@ -78,10 +78,10 @@ Run frontend
 ```
 cd frontend
 poetry shell
-poetry install (if it is the first app launch on the system)
+poetry install (requried only if it is the first app launch on the system)
 python index.py
 ```
-Now you can go to `localhost:${BACKEND_PORT}/docs` (BACKEND_PORT sets in `.env` file) to check the API documentation. Frontend is served `localhost:${FRONTEND_PORT}/dash`.
+Now you can go to `localhost:${BACKEND_PORT}/docs` (BACKEND_PORT is set in `.env` file) to check the API documentation. Frontend is served on `localhost:${FRONTEND_PORT}/dash`.
 
 ### Running within containers
 Alternatively, you can build docker images with the `setup.sh` and run both services with the same script.
@@ -92,9 +92,13 @@ NOTE: `setup.sh` requires some env variables to be set. So either export them ma
 ---
 
 ```
-bash setup.sh  # build images
+$ bash setup.sh  # build images
++ '[' -f .env ']'
++ source .env
+++ REGISTRY_HOST=localhost:5000
+++ BACKEND_PORT=8000
 ...
-bash setup.sh run  # run both containers
+$ bash setup.sh run  # run both containers
 ```
 
 You can use `docker ps` to verify if containers are up.
