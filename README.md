@@ -102,3 +102,5 @@ $ bash setup.sh run  # run both containers
 ```
 
 You can use `docker ps` to verify if containers are up.
+
+In order to initialize app database with sample data run `init_sample_db.sh`.
