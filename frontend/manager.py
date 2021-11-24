@@ -10,12 +10,6 @@ LOG = logging.getLogger(__name__)
 ALL_CROSSWALK_PLACEHOLDER = "all"
 
 
-class AggregationTimeType(Enum):
-    MINUTES = "m"
-    HOUR = "h"
-    DAY = "d"
-
-
 class ClientManager:
 
     def __init__(self, client: Client) -> None:

@@ -59,11 +59,12 @@ def update_graph(crosswalk: str, graph_checklist: str):
         trendline="lowess" if 'trendline' in graph_checklist else None,
         range_x=x_range,
     )
+
     fig.update_xaxes(
         rangeselector=dict(
             buttons=list([
                 dict(count=1, label="1h", step="hour", stepmode="backward"),
-                dict(count=12, label="12h", step="hour", stepmode="backward"),
+                dict(count=6, label="6h", step="hour", stepmode="backward"),
                 dict(count=1, label="1d", step="day", stepmode="backward"),
                 dict(count=7, label="7d", step="day", stepmode="backward"),
                 dict(count=1, label="1m", step="month", stepmode="backward"),
@@ -129,6 +130,3 @@ def render_page_content(pathname):
         ],
         className="py-3",
     ))
-
-
-# !TODO add graph: histogram with sum per crosswalk
