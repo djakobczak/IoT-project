@@ -1,8 +1,10 @@
 import logging
+import os
 
 import dash
 import dash_auth
 import dash_bootstrap_components as dbc
+from dotenv import load_dotenv
 
 from client import Client
 from manager import ClientManager
@@ -22,7 +24,13 @@ external_stylesheets = [
     dbc.themes.SPACELAB
 ]
 
+load_dotenv()
+CREDENTIALS = {
+    os.getenv('OPERATOR_USERNAME'): os.getenv('OPERATOR_PASSWORD')
+}
+
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+auth = dash_auth.BasicAuth(app, CREDENTIALS)
 app.layout = layout
 app.client = ClientManager(
     Client(

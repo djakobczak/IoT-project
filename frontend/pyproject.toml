@@ -14,6 +14,7 @@ dash-bootstrap-components = "^1.0.0"
 dash-auth = "^1.4.1"
 pydantic = {extras = ["dotenv"], version = "^1.8.2"}
 statsmodels = "^0.13.1"
+python-dotenv = "^0.19.2"
 
 [tool.poetry.dev-dependencies]
 
