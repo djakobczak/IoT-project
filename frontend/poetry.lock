@@ -437,7 +437,7 @@ watchdog = ["watchdog"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "f04e0fe3f8c40d801756ebc3043e84a5a660b739dfee70a7c5a95036e0c4909e"
+content-hash = "6bf6971d73b5269fb503fded8ac3d42db9a6505be025a0b59865353cef7596c7"
 
 [metadata.files]
 brotli = [

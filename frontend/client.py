@@ -40,7 +40,7 @@ class Client:
             raise ValueError(f'Invalid request method ({method})')
 
         response_data = response.json()
-        LOG.debug("Got response: %s", response_data)
+        # LOG.debug("Got response: %s", response_data)
         return response_data
 
     def get_all_crosswalks(self):

@@ -7,7 +7,7 @@ from pandas import DataFrame, to_datetime
 
 
 LOG = logging.getLogger(__name__)
-ALL_CROSSWALK_PLACEHOLDER = "all"
+ALL_CROSSWALK_PLACEHOLDER = "wszystkie"
 
 
 class ClientManager:
@@ -26,6 +26,9 @@ class ClientManager:
     ) -> DataFrame:
         stats = self.client.get_all_stats()
         df = DataFrame(stats)
+        if df.empty:
+            return df
+
         df["timestamp"] = to_datetime(df["timestamp"])
 
         if crosswalks_names and ALL_CROSSWALK_PLACEHOLDER not in crosswalks_names:

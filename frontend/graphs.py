@@ -1,13 +1,17 @@
 from datetime import datetime, timedelta
 
-from dash import html
+from dash import html, callback_context
 from dash.dependencies import Output, Input
 import dash_bootstrap_components as dbc
 import plotly.express as px
 import plotly.graph_objs as go
+import pandas as pd
 
 from app import app
-from layout import dash_page
+from layout import (
+    ALL_BTN_ID, dash_page, TIME_BTNS, TIME_AGGR_BTNS,
+    GRAPH_TYPE_SCATTER, GRAPH_TYPE_LINEAR)
+from views.management import mgmt_page
 
 
 NOT_MATCHING_DATA = {
@@ -35,12 +39,24 @@ NOT_MATCHING_DATA = {
 DEFAULT_RANGE = timedelta(hours=1)
 GRAPHS_TEMPLATE = "plotly_white"
 
+time_range = DEFAULT_RANGE
+aggr_level = "1Min"
+
 
 @app.callback(
     Output("test-graph", "figure"),
     [Input("crosswalk-filter", "value"),
-     Input("graph-checklist", "value"),])
-def update_graph(crosswalk: str, graph_checklist: str):
+     Input("graph-checklist", "value"),
+     Input("graph-type-radio", "value"),
+     Input('interval-component', 'n_intervals'),
+     *[Input(btn_id, "n_clicks") for btn_id in TIME_BTNS],
+     *[Input(btn_id, "n_clicks") for btn_id in TIME_AGGR_BTNS]
+     ])
+def update_graph(crosswalk: str,
+                 graph_checklist: str,
+                 graph_type: str,
+                 n_intervals: int,
+                 *btns):
     # request data
     stats_df = app.client.get_stats(
         [crosswalk] if crosswalk else None, groupby=["timestamp"])
@@ -48,34 +64,47 @@ def update_graph(crosswalk: str, graph_checklist: str):
     if stats_df.empty:
         return NOT_MATCHING_DATA
 
+    global time_range
+    global aggr_level
+    changed_id = [p['prop_id'] for p in callback_context.triggered][0]
+    for btn_id in TIME_BTNS:
+        if btn_id not in changed_id:
+            continue
+        time_range = TIME_BTNS[btn_id]
+
+    for btn_id in TIME_AGGR_BTNS:
+        if btn_id not in changed_id:
+            continue
+        aggr_level = TIME_AGGR_BTNS[btn_id]
+
     now = datetime.today()
-    x_range = [now - DEFAULT_RANGE, now]
+    x_range = None
+    if time_range is not None:
+        x_range = [now - time_range, now]
+
+    stats_df = stats_df.resample(aggr_level, on="timestamp").sum()
+    stats_df['timestamp'] = stats_df.index
+    stats_df = stats_df.reset_index(drop=True)
 
     # generate graph
-    fig = px.scatter(
-        x=stats_df["timestamp"],
-        y=stats_df["pedestrians"],
-        template=GRAPHS_TEMPLATE,
-        trendline="lowess" if 'trendline' in graph_checklist else None,
-        range_x=x_range,
-    )
+    fig = None
+    if graph_type == GRAPH_TYPE_SCATTER:
+        fig = px.scatter(
+            x=stats_df['timestamp'],
+            y=stats_df["pedestrians"],
+            template=GRAPHS_TEMPLATE,
+            trendline="lowess" if 'trendline' in graph_checklist else None,
+            trendline_color_override = 'red',
+            range_x=x_range,
+        )
 
-    fig.update_xaxes(
-        rangeselector=dict(
-            buttons=list([
-                dict(count=1, label="1h", step="hour", stepmode="backward"),
-                dict(count=6, label="6h", step="hour", stepmode="backward"),
-                dict(count=1, label="1d", step="day", stepmode="backward"),
-                dict(count=7, label="7d", step="day", stepmode="backward"),
-                dict(count=1, label="1m", step="month", stepmode="backward"),
-                dict(count=1, label="1y", step="year", stepmode="backward"),
-            ]),
-        ),
-        rangeslider={
-            "autorange": False,
-            "visible": True,
-        }
-    )
+    else:
+        fig = px.line(
+            x=stats_df["timestamp"],
+            y=stats_df["pedestrians"],
+            template=GRAPHS_TEMPLATE,
+            range_x=x_range,
+        )
 
     fig.update_layout(
         xaxis_title="Data",
@@ -84,12 +113,29 @@ def update_graph(crosswalk: str, graph_checklist: str):
         paper_bgcolor="rgba(0, 0, 0, 0)",
         xaxis={ "autorange": False },
     )
+
+    return fig
+
+
+def _create_histogram(df, x_name, y_name, xaxis_title, yaxis_title):
+    fig = px.line(
+        df,
+        x=x_name,
+        y=y_name,
+        template=GRAPHS_TEMPLATE,
+    )
+
+    fig.update_layout(
+        xaxis_title=xaxis_title,
+        yaxis_title=yaxis_title,
+        plot_bgcolor="rgba(0, 0, 0, 0)",
+        paper_bgcolor="rgba(0, 0, 0, 0)",
+    )
     return fig
 
 
 @app.callback(Output("stat-histogram", "figure"), [Input("histogram-slider", "value"),])
 def update_stat_hisogram(slider_value: str):
-    print("slider", slider_value)
     stats_df = app.client.get_stats()
     if stats_df.empty:
         return NOT_MATCHING_DATA
@@ -116,10 +162,11 @@ def update_stat_hisogram(slider_value: str):
 
 @app.callback(Output("page-content", "children"), [Input("url", "pathname")])
 def render_page_content(pathname):
-    if pathname == "/dash":
+    if pathname in ("/", "/dash"):
         return dash_page
     elif pathname == "/crosswalks":
-        return html.P("This is the content of page 1. Yay!")
+        # return mgmt_page
+        return "Work in progress"
 
     return html.Div(
         dbc.Container(
