@@ -24,7 +24,7 @@ NOT_MATCHING_DATA = {
         },
         "annotations": [
             {
-                "text": "No matching data found",
+                "text": "Brak danych",
                 "xref": "paper",
                 "yref": "paper",
                 "showarrow": False,
@@ -134,8 +134,10 @@ def _create_histogram(df, x_name, y_name, xaxis_title, yaxis_title):
     return fig
 
 
-@app.callback(Output("stat-histogram", "figure"), [Input("histogram-slider", "value"),])
-def update_stat_hisogram(slider_value: str):
+@app.callback(Output("stat-histogram", "figure"),
+              [Input("histogram-slider", "value"),
+               Input('interval-component', 'n_intervals')])
+def update_stat_hisogram(slider_value: str, n_intervals: int):
     stats_df = app.client.get_stats()
     if stats_df.empty:
         return NOT_MATCHING_DATA

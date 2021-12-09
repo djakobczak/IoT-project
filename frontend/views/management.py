@@ -110,6 +110,9 @@ def submit_deletion(submit_n_clicks, n_intervals, selected_rows, data, delete_is
 
 mgmt_page = html.Div(
     children = [
+        html.Div(children = [
+            html.H1("Zarządzanie przejściami", className="header-title"),
+        ], className="header"),
         dbc.Alert(
             "Przejście zostało usunięte",
             id="alert-delete",
