@@ -36,6 +36,8 @@ class Client:
             response = requests.get(url, headers=headers)
         elif method == 'post':
             response = requests.post(url, data=body, headers=headers)
+        elif method == 'delete':
+            response = requests.delete(url, data=body, headers=headers)
         else:
             raise ValueError(f'Invalid request method ({method})')
 
@@ -50,6 +52,10 @@ class Client:
     def get_all_stats(self):
         auth_header = self._prepare_auth_header()
         return self._send_request(self.STATISTICS_ENDPOTIN, headers=auth_header)
+
+    def delete_crosswalk(self, name: str):
+        auth_header = self._prepare_auth_header()
+        return self._send_request(self.CROSSWALK_ENDPOINT + f"/{name}", headers=auth_header, method='delete')
 
     def _get_token(self):
         data = f'grant_type=&username={self.username}&password={self.passwd}&scope=&client_id=&client_secret='

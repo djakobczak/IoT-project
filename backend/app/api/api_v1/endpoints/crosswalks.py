@@ -27,7 +27,7 @@ def read_crosswalk(
     db: Session = Depends(get_db),
     current_user: UserSchema = Depends(get_current_active_user)
 ) -> Any:
-    return crud.get_crosswalk(db, id)  # returns null if not found !TODO maybe raise exception
+    return crud.get_crosswalk(db, id)
 
 
 @router.post("/", response_model=CrosswalkSchema)
@@ -43,3 +43,14 @@ def create_crosswalk(
             detail=f"Crosswalk with name ({crosswalk_name}) "
             "is already registered")
     return crud.create_crosswalk(db=db, crosswalk=crosswalk)
+
+
+@router.delete("/{name}", response_model=CrosswalkSchema)
+def delete_crosswalk(
+    name: str,
+    db: Session = Depends(get_db),
+    current_user: UserSchema = Depends(get_current_active_user)
+) -> Any:
+    if not crud.get_crosswalk_by_name(db, name):
+        raise HTTPException(status_code=404, detail="Crosswalk not found")
+    return crud.delete_crosswalk(db, name)

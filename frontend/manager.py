@@ -19,6 +19,15 @@ class ClientManager:
         crosswalks = self.client.get_all_crosswalks()
         return [cross["name"] for cross in crosswalks]
 
+    def get_crosswalks_df(self) -> DataFrame:
+        crosswalks = self.client.get_all_crosswalks()
+        df = DataFrame(crosswalks)
+        if df.empty:
+            return DataFrame(columns=["Nazwa", "Opis"])
+        df = df.rename({"name": "Nazwa", "description": "Opis"}, axis=1)
+        df = df[["Nazwa", "Opis"]]
+        return df
+
     def get_stats(
         self,
         crosswalks_names: List[str] = None,

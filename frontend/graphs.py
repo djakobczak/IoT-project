@@ -165,8 +165,7 @@ def render_page_content(pathname):
     if pathname in ("/", "/dash"):
         return dash_page
     elif pathname == "/crosswalks":
-        # return mgmt_page
-        return "Work in progress"
+        return mgmt_page
 
     return html.Div(
         dbc.Container(
