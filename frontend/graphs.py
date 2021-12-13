@@ -83,6 +83,7 @@ def update_graph(crosswalk: str,
         x_range = [now - time_range, now]
 
     stats_df = stats_df.resample(aggr_level, on="timestamp").sum()
+    stats_df = stats_df[stats_df["pedestrians"] != 0]
     stats_df['timestamp'] = stats_df.index
     stats_df = stats_df.reset_index(drop=True)
 

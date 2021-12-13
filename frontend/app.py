@@ -30,6 +30,7 @@ CREDENTIALS = {
 }
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+app.server.config.SECRET_KEY = os.getenv("SECRET_KEY")
 auth = dash_auth.BasicAuth(app, CREDENTIALS)
 app.layout = layout
 app.client = ClientManager(

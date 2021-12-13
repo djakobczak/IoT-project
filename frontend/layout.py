@@ -115,7 +115,7 @@ graph_checklist = html.Div(
             ],
             value=GRAPH_TYPE_SCATTER,
             className="mt-3 mb-3",
-            labelStyle={"padding-right": "10px"}
+            labelStyle={"paddingRight": "10px"}
         ),
         dcc.Checklist(
             id='graph-checklist',
