@@ -1,7 +1,7 @@
 # IoT-project
 
 This repository contains files related to university project, that was focused on
-creation of small IoT system. Plan was to design a system that improve pedestrains
+creation of small IoT system. Plan was to design a system that improve pedestrians
 safety. To achieve that few components were developed:
 
 * ML people detection script for RaspberryPi
