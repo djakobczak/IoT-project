@@ -18,7 +18,7 @@ def read_users_me(
 ):
     return current_user
 
-# !TODO remove or add authentication
+
 @router.post("/")
 def create_user(
     user: UserCreate,
@@ -28,7 +28,7 @@ def create_user(
     db_usernames = [user.username for user in crud.get_users(db)]
     if username in db_usernames:
         raise HTTPException(
-            status_code=404,
+            status_code=400,
             detail=f"User with name ({username}) already exists")
     return crud.create_user(db, user)
 

@@ -23,12 +23,10 @@ class Client:
                       body: Any = None,
                       query_params: Dict[str, str] = None,
                       headers: Dict[str, str] = None,
-                    ):
+                    ) -> dict:
         url = f"{self.base_url}{endpoint}"
         if query_params:
-            params = "&".join(
-                '='.join([key, val] for key, val in qparam)
-                for qparam in query_params)
+            params = "&".join(f'{key}={val}' for key, val in query_params.items())
             url += f"?{params}"
 
         LOG.debug("Send request to %s", url)
@@ -41,8 +39,12 @@ class Client:
         else:
             raise ValueError(f'Invalid request method ({method})')
 
+        if not response.ok:
+            LOG.error("Got invalid response from backend: [%s] %s",
+                      response.status_code, response.text)
+
         response_data = response.json()
-        # LOG.debug("Got response: %s", response_data)
+        LOG.debug("Got response: %s", response_data)
         return response_data
 
     def get_all_crosswalks(self):

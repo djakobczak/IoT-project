@@ -21,6 +21,6 @@ def get_users(db: Session):
     return db.query(UserModel).all()
 
 
-def get_user(db: Session, username: str):
+def get_user(db: Session, username: str) -> UserModel:
     return db.query(UserModel).filter(
         UserModel.username == username).first()
