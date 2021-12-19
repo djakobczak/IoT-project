@@ -1,19 +1,28 @@
 # IoT-project
 
-TODO: project description
+This repository contains files related to university project, that was focused on
+creation of small IoT system. Plan was to design a system that improve pedestrains
+safety. To achieve that few components were developed:
+
+* ML people detection script for RaspberryPi
+* master-slave protocol
+* communication with the server
+* server (both frontend and backend) that gathers statistics from crosswalks and visualize them
 
 ## Prerequisites
 
 Requirements:
 
-- python3.8+
-- poetry
-- docker (optional)
+* python3.8+
+* poetry
+* docker (optional)
 
 Before you run this project create `.env` configuration file for both backend and frontend.
 
 Sample backend configuration (should be placed in `./backend/`):
-```
+
+``` bash
+
 REGISTRY_HOST="localhost:5000"
 
 BACKEND_PORT=8000
@@ -37,7 +46,8 @@ ALGORITHM="HS256"
 
 Sample frontend configuration (should be placed in `./frontend/`):
 
-```
+``` bash
+
 REGISTRY_HOST="localhost:5000"
 
 BACKEND_PORT=8000
@@ -67,23 +77,31 @@ Application can run directly on host or within docker containers.
 ### Running directly on host
 
 Run backend
-```
+
+``` bash
+
 cd backend
 poetry shell
 poetry install (requried only if it is the first app launch on the system)
 export PYTHONPATH=.
 python app/main.py
 ```
+
 Run frontend
-```
+
+``` bash
+
 cd frontend
 poetry shell
 poetry install (requried only if it is the first app launch on the system)
 python index.py
+
 ```
+
 Now you can go to `localhost:${BACKEND_PORT}/docs` (BACKEND_PORT is set in `.env` file) to check the API documentation. Frontend is served on `localhost:${FRONTEND_PORT}/dash`.
 
 ### Running within containers
+
 Alternatively, you can build docker images with the `setup.sh` and run both services with the same script.
 
 ---
@@ -91,7 +109,8 @@ NOTE: `setup.sh` requires some env variables to be set. So either export them ma
 
 ---
 
-```
+``` bash
+
 $ bash setup.sh  # build images
 + '[' -f .env ']'
 + source .env
